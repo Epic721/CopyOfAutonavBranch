@@ -7,6 +7,8 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -36,6 +38,14 @@ public final class Constants {
         
     }
 
+    public static final class AutoConstants {
+
+	    	public static double kMaxSpeedMetersPerSecond = 3;
+	    	public static double kMaxAccelerationMetersPerSecondSquared = 3;
+		    public static double kRamseteB = 2;
+		    public static double kRamseteZeta = 0.7;
+    }
+
     public static final class DriveConstants {
         public static final int kLeftMasterPort = 1;
         public static final int kLeftFollowerPort = 2;
@@ -45,16 +55,24 @@ public final class Constants {
         public static final TalonFXInvertType kLeftInvertType = TalonFXInvertType.CounterClockwise;
         public static final TalonFXInvertType kRightInvertType = TalonFXInvertType.Clockwise;
 
-        public static final double kDriveSpeed = 0.7;
+        public static final double kDriveSpeed = 0.8;
+
+        public static final double kTrackWidth = 0.5558; // meters->needs to be inputted
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidth);
+        
+        public static final double kWheelRadius = Units.inchesToMeters(3); // meters->needs to be inputted
+        public static final int kEncoderResolution = 2048; // <-precision for integrated talon FX encoder
+        public static final double kDistancePerPulseFactor = (2 * Math.PI * kWheelRadius)/ kEncoderResolution;
+       
+        public static double ksVolts = 0.22;
+    		public static double kvVoltSecondsPerMeter = 1.98;
+		    public static double kaVoltSecondsSquaredPerMeter = 0.2;
+    		public static double kPDriveVel = 8.5;
     }
 
     public static final class IntakeConstants {
-        
         public static final int kRollerPort = 6;
-
-        
         public static final boolean kRollerInvert = false;
-
         public static final double kIntakeSpeed = -0.3;
         public static final double kOuttakeSpeed = 0.3;
     }
@@ -63,6 +81,5 @@ public final class Constants {
         public static final int kArmPort = 5;
         public static final boolean kArmInvert = true;
         public static final double kArmSpeed = 0.07;
-
     }
 }
